@@ -1,0 +1,20 @@
+{
+    "manifest_version": 3,
+    "name": "LockKey manager",
+    "version": "1.0",
+
+    "description": "Gestionnaire de mots de passe",
+
+    "permissions": ["storage", "activeTab", "scripting"],
+
+    "action": {
+        "default_popup": "popup.html"
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ]
+}
