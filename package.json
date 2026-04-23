@@ -19,6 +19,7 @@
         "vite": "^8.0.0"
     },
     "dependencies": {
+        "typescript": "^6.0.3",
         "zxcvbn": "^4.4.2"
     }
 }

@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "outDir": "./extension/dist",
+        "rootDir": "./extension",
+        "target": "es6",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "strict": true,
+        "ignoreDeprecations": "6.0" //À retirer dans le future
+    },
+    "include": ["extension/**/*.ts"]
+}

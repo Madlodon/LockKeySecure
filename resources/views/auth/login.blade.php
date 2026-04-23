@@ -138,6 +138,23 @@
             text-decoration: none; margin-top: .3rem;
         }
         .forgot-link:hover { color: #fff; }
+
+        .btn-passkey {
+            width: 100%;
+            display: flex; align-items: center; justify-content: center; gap: .6rem;
+            padding: .65rem 1rem;
+            border-radius: var(--radius);
+            border: 1px solid rgba(0,170,0,.4);
+            background: rgba(0,170,0,.1);
+            color: #a3ffb0;
+            font-size: .875rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background .2s, border-color .2s;
+            margin-bottom: 1rem;
+        }
+        .btn-passkey:hover { background: rgba(0,170,0,.2); border-color: var(--green-accent); }
+        #passkey-error { color: #ffb0b0; font-size: .8rem; text-align: center; margin-top: .5rem; display: none; }
     </style>
 </head>
 <body>
@@ -191,6 +208,16 @@
         <button type="submit" class="btn-submit">Se connecter</button>
     </form>
 
+    <div class="divider">ou</div>
+
+    <button type="button" class="btn-passkey" id="btn-passkey">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5z"/><path d="M15 12H9a4 4 0 0 0-4 4v2h14v-2a4 4 0 0 0-4-4z"/>
+        </svg>
+        Se connecter avec Passkey
+    </button>
+    <div id="passkey-error"></div>
+
     <div class="divider">ou continuer avec</div>
 
     <div class="oauth-btns">
@@ -224,5 +251,68 @@
     </p>
 </div>
 
+<script>
+document.getElementById('btn-passkey').addEventListener('click', async () => {
+    const errorEl = document.getElementById('passkey-error');
+    errorEl.style.display = 'none';
+
+    try {
+        const optRes = await fetch('{{ route('passkeys.auth.options') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: JSON.stringify({}),
+        });
+        const options = await optRes.json();
+
+        const challengeBuffer = Uint8Array.from(
+            atob(options.challenge.replace(/-/g, '+').replace(/_/g, '/')),
+            c => c.charCodeAt(0)
+        );
+
+        const assertion = await navigator.credentials.get({
+            publicKey: {
+                challenge: challengeBuffer,
+                rpId: options.rpId,
+                allowCredentials: [],
+                userVerification: options.userVerification,
+                timeout: options.timeout,
+            },
+        });
+
+        const toBase64url = buf =>
+            btoa(String.fromCharCode(...new Uint8Array(buf)))
+                .replace(/\+/g, '-').replace(/\//g, '_').replace(/=/g, '');
+
+        const authRes = await fetch('{{ route('passkeys.authenticate') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            },
+            body: JSON.stringify({
+                id:                assertion.id,
+                clientDataJSON:    toBase64url(assertion.response.clientDataJSON),
+                authenticatorData: toBase64url(assertion.response.authenticatorData),
+                signature:         toBase64url(assertion.response.signature),
+            }),
+        });
+
+        const result = await authRes.json();
+
+        if (result.success) {
+            window.location.href = result.redirect;
+        } else {
+            errorEl.textContent = result.error ?? 'Échec de la connexion par passkey.';
+            errorEl.style.display = 'block';
+        }
+    } catch (e) {
+        errorEl.textContent = 'Passkey annulé ou non supporté par ce navigateur.';
+        errorEl.style.display = 'block';
+    }
+});
+</script>
 </body>
 </html>

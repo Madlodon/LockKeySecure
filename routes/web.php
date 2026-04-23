@@ -13,6 +13,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::middleware('guest')->group(function () {
+    Route::post('/passkeys/auth/options', [PasskeyController::class, 'authOptions'])->name('passkeys.auth.options');
+    Route::post('/passkeys/auth', [PasskeyController::class, 'authenticate'])->name('passkeys.authenticate');
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [ServiceController::class, 'index'])->name('dashboard');
     Route::resource('services', ServiceController::class)->except(['index', 'show']);
