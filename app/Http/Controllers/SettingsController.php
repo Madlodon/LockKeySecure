@@ -59,10 +59,11 @@ class SettingsController extends Controller
         $qrSvg  = base64_encode($writer->writeString($qrCodeUrl));
 
         return view('settings', [
-            'tab'    => '2fa',
-            'qrSvg'  => $qrSvg,
-            'secret' => $user->two_factor_secret,
+            'tab'      => '2fa',
+            'qrSvg'    => $qrSvg,
+            'secret'   => $user->two_factor_secret,
             'sessions' => collect(),
+            'passkeys' => $user->passkeys()->latest()->get(),
         ]);
     }
 
