@@ -205,7 +205,7 @@
                     @endif
                 </div>
                 <div style="flex:1;">
-                    <input id="url" type="url" name="url" value="{{ old('url', $service->url) }}" placeholder="https://youtube.com" oninput="updateIconFromUrl(this.value)">
+                    <input id="url" type="text" name="url" value="{{ old('url', $service->url) }}" placeholder="youtube.com" oninput="updateIconFromUrl(this.value)" onblur="normalizeUrl(this)">
                 </div>
             </div>
             @error('url')<div class="field-error">{{ $message }}</div>@enderror
@@ -383,6 +383,15 @@
         input.type  = 'text';
         input.value = pwd;
         updateEntropy(pwd);
+    }
+
+    /* ── Normalisation URL ── */
+    function normalizeUrl(input) {
+        const val = input.value.trim();
+        if (val && !val.match(/^https?:\/\//i)) {
+            input.value = 'https://' + val;
+            updateIconFromUrl(input.value);
+        }
     }
 
     /* ── Icône dynamique — fallbacks haute qualité ── */

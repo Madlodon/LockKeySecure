@@ -22,6 +22,13 @@ class ServiceController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
+        if ($request->filled('url')) {
+            $url = trim($request->input('url'));
+            if (! preg_match('#^https?://#i', $url)) {
+                $request->merge(['url' => 'https://' . $url]);
+            }
+        }
+
         $data = $request->validate([
             'name'       => ['required', 'string', 'max:255'],
             'url'        => ['nullable', 'url', 'max:500'],
@@ -44,6 +51,13 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service): RedirectResponse
     {
         abort_unless($service->user_id === auth()->id(), 403);
+
+        if ($request->filled('url')) {
+            $url = trim($request->input('url'));
+            if (! preg_match('#^https?://#i', $url)) {
+                $request->merge(['url' => 'https://' . $url]);
+            }
+        }
 
         $data = $request->validate([
             'name'       => ['required', 'string', 'max:255'],
