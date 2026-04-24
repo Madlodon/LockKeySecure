@@ -7,5 +7,6 @@
         "outDir": "dist",
         "types": ["chrome"]
     },
-    "include": ["*.ts"]
+    "include": ["*.ts"],
+    "exclude": ["node_modules"]
 }

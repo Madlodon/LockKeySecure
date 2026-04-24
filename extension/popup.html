@@ -1,12 +1,95 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <link rel="stylesheet" href="popup.css">
-    <title>LockKey generator</title>
-    <script type="module" src="dist/password-generator.js"></script>
+    <meta charset="UTF-8">
+    <title>LockKeySecure</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            width: 300px;
+            font-family: Arial, sans-serif;
+            background: #0d1f0d;
+            color: #fff;
+            padding: 1.25rem;
+        }
+        .brand {
+            display: flex; align-items: center; gap: .5rem;
+            margin-bottom: 1.25rem;
+        }
+        .brand span { font-size: 1rem; font-weight: 700; color: #00aa00; }
+
+        .field { margin-bottom: .85rem; }
+        .field label { display: block; font-size: .8rem; color: rgba(255,255,255,.6); margin-bottom: .3rem; }
+        .field input {
+            width: 100%; padding: .5rem .75rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,.2);
+            background: rgba(255,255,255,.08);
+            color: #fff; font-size: .875rem; outline: none;
+        }
+        .field input:focus { border-color: #00aa00; }
+
+        .btn {
+            width: 100%; padding: .6rem;
+            border-radius: 8px; border: none;
+            background: #00aa00; color: #fff;
+            font-size: .9rem; font-weight: 700;
+            cursor: pointer; transition: background .2s;
+        }
+        .btn:hover { background: #009900; }
+        .btn-logout {
+            width: 100%; padding: .5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,.2);
+            background: transparent; color: rgba(255,255,255,.6);
+            font-size: .8rem; cursor: pointer;
+            transition: all .2s; margin-top: .75rem;
+        }
+        .btn-logout:hover { background: rgba(255,0,0,.15); color: #ff8080; border-color: rgba(255,0,0,.3); }
+
+        .status {
+            font-size: .8rem; text-align: center;
+            margin-top: .75rem; min-height: 1.2rem;
+        }
+        .status.error { color: #ff8080; }
+        .status.success { color: #a3ffb0; }
+
+        .logged-in { text-align: center; }
+        .logged-in p { color: rgba(255,255,255,.6); font-size: .85rem; margin-bottom: 1rem; }
+        .logged-in strong { color: #00aa00; }
+    </style>
 </head>
 <body>
-    <h1>LockKeySecure</h1>
+    <div class="brand">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#00aa00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <span>LockKeySecure</span>
+    </div>
+
+    <div id="view-login">
+        <div class="field">
+            <label for="email">Courriel</label>
+            <input id="email" type="email" placeholder="vous@exemple.com" autofocus>
+        </div>
+        <div class="field">
+            <label for="password">Mot de passe</label>
+            <input id="password" type="password" placeholder="••••••••">
+        </div>
+        <button class="btn" id="btn-login">Se connecter</button>
+        <div class="status" id="status"></div>
+    </div>
+
+    <div id="view-loggedin" style="display:none;">
+        <div class="logged-in">
+            <p>Connecté en tant que<br><strong id="user-email"></strong></p>
+            <p style="font-size:.78rem;color:rgba(255,255,255,.4);margin-bottom:1rem;">
+                Les credentials sont remplis automatiquement sur les pages de connexion.
+            </p>
+            <button class="btn-logout" id="btn-logout">Se déconnecter</button>
+        </div>
+    </div>
+
+    <script type="module" src="dist/popup.js"></script>
 </body>
 </html>

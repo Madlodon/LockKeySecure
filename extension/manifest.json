@@ -1,15 +1,21 @@
 {
-    "name": "Auto filling",
+    "name": "LockKeySecure",
     "version": "1.0",
-    "manifest_version": 2,
-    "description": "Extension qui rempli automatiquement les champs comme 'mail' et 'password'.",
-    "browser_action": {
-        "default_icon": "icon.png",
-        "default_popup": "dist/index.js"
+    "manifest_version": 3,
+    "description": "Remplit automatiquement les champs de connexion avec vos identifiants LockKeySecure.",
+    "action": {
+        "default_popup": "popup.html"
     },
     "content_scripts": [{
         "matches": ["<all_urls>"],
         "js": ["dist/credentials.js"],
         "run_at": "document_idle"
-    }]
+    }],
+    "permissions": [
+        "storage",
+        "activeTab"
+    ],
+    "host_permissions": [
+        "https://laniproject.dev/*"
+    ]
 }

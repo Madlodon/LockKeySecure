@@ -79,3 +79,17 @@ export async function fillCredentials(service: Service): Promise<void> {
     passwordField.value = service.password;
     passwordField.dispatchEvent(new Event('input', { bubbles: true }));
 }
+
+// ── Auto-fill au chargement de la page ──────────────────────────────────────
+(async () => {
+    const passwordField = document.querySelector<HTMLInputElement>('input[type="password"]');
+    if (!passwordField) return;
+
+    const domain = window.location.hostname;
+    const services = await getServicesByDomain(domain);
+
+    if (services.length === 0) return;
+
+    // Utilise le premier service correspondant au domaine
+    await fillCredentials(services[0]);
+})();
