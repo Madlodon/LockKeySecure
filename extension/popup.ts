@@ -31,7 +31,17 @@ document.getElementById('btn-login')!.addEventListener('click', async () => {
     statusEl.textContent = 'Connexion…';
     statusEl.className   = 'status';
 
-    const success = await apiLogin(email, password);
+    console.log('Tentative de connexion avec:', email);
+    let success = false;
+    try {
+        success = await apiLogin(email, password);
+        console.log('Résultat:', success);
+    } catch (e) {
+        console.error('Erreur:', e);
+        statusEl.textContent = 'Erreur réseau: ' + e;
+        statusEl.className   = 'status error';
+        return;
+    }
 
     if (success) {
         await chrome.storage.local.set({ userEmail: email });
