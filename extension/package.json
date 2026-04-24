@@ -1,0 +1,8 @@
+{
+    "name": "lockkeysecure-extension",
+    "version": "1.0.0",
+    "devDependencies": {
+        "@types/chrome": "^0.0.320",
+        "typescript": "^5.0.0"
+    }
+}

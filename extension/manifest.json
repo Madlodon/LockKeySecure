@@ -1,20 +1,15 @@
 {
-    "manifest_version": 3,
-    "name": "LockKey manager",
+    "name": "Auto filling",
     "version": "1.0",
-
-    "description": "Gestionnaire de mots de passe",
-
-    "permissions": ["storage", "activeTab", "scripting"],
-
-    "action": {
-        "default_popup": "popup.html"
+    "manifest_version": 2,
+    "description": "Extension qui rempli automatiquement les champs comme 'mail' et 'password'.",
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_popup": "dist/index.js"
     },
-
-    "content_scripts": [
-        {
-            "matches": ["<all_urls>"],
-            "js": ["content.js"]
-        }
-    ]
+    "content_scripts": [{
+        "matches": ["<all_urls>"],
+        "js": ["dist/credentials.js"],
+        "run_at": "document_idle"
+    }]
 }

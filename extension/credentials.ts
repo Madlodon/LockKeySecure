@@ -1,0 +1,81 @@
+const API_BASE = 'https://laniproject.dev/api';
+
+interface Service {
+    id: number;
+    name: string;
+    url: string;
+    account_id: string;
+    password: string;
+}
+
+interface LoginResponse {
+    token: string;
+    user: { id: number; name: string; email: string };
+}
+
+export async function apiLogin(email: string, password: string): Promise<boolean> {
+    const response = await fetch(`${API_BASE}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+    });
+
+    if (!response.ok) return false;
+
+    const data: LoginResponse = await response.json();
+    await chrome.storage.local.set({ token: data.token });
+    return true;
+}
+
+export async function apiLogout(): Promise<void> {
+    const { token } = await chrome.storage.local.get('token');
+    if (!token) return;
+
+    await fetch(`${API_BASE}/logout`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
+    });
+
+    await chrome.storage.local.remove('token');
+}
+
+export async function getServicesByDomain(domain: string): Promise<Service[]> {
+    const { token } = await chrome.storage.local.get('token');
+    if (!token) return [];
+
+    const response = await fetch(`${API_BASE}/services?domain=${domain}`, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        },
+    });
+
+    if (response.status === 401) {
+        await chrome.storage.local.remove('token');
+        return [];
+    }
+
+    if (!response.ok) return [];
+
+    return response.json();
+}
+
+export async function fillCredentials(service: Service): Promise<void> {
+    const passwordField = document.querySelector<HTMLInputElement>('input[type="password"]');
+    if (!passwordField) return;
+
+    const form = passwordField.closest('form');
+    const usernameField =
+        form?.querySelector<HTMLInputElement>('input[type="email"]') ||
+        form?.querySelector<HTMLInputElement>('input[type="text"]')  ||
+        form?.querySelector<HTMLInputElement>('input[name*="user"]') ||
+        form?.querySelector<HTMLInputElement>('input[name*="email"]');
+
+    if (usernameField && service.account_id) {
+        usernameField.value = service.account_id;
+        usernameField.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+
+    passwordField.value = service.password;
+    passwordField.dispatchEvent(new Event('input', { bubbles: true }));
+}
