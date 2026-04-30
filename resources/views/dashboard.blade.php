@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="green">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard — LockKeySecure</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script>(function(){const t=localStorage.getItem('lks_theme')||'green';document.documentElement.setAttribute('data-theme',t);})();</script>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root {

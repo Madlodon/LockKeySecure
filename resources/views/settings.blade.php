@@ -1,10 +1,16 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="green">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Paramètres — LockKeySecure</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script>
+        (function() {
+            const t = localStorage.getItem('lks_theme') || 'green';
+            document.documentElement.setAttribute('data-theme', t);
+        })();
+    </script>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root {
@@ -190,6 +196,23 @@
         .passkey-name { font-weight: 600; margin-bottom: .15rem; }
         .passkey-meta { color: rgba(255,255,255,.4); font-size: .78rem; }
 
+        /* ── THÈMES ── */
+        .theme-card {
+            background: rgba(255,255,255,.05);
+            border: 2px solid rgba(255,255,255,.12);
+            border-radius: var(--radius);
+            padding: .85rem;
+            width: 140px;
+            cursor: pointer;
+            font-size: .85rem;
+            color: rgba(255,255,255,.7);
+            text-align: center;
+            transition: border-color .2s, transform .15s;
+            font-family: Arial, sans-serif;
+        }
+        .theme-card:hover { border-color: rgba(255,255,255,.3); transform: translateY(-2px); }
+        .theme-card.active-theme { border-color: var(--green-accent); color: #fff; }
+
         /* ── SESSIONS ── */
         .session-list { display: flex; flex-direction: column; gap: .75rem; }
         .session-item {
@@ -255,6 +278,10 @@
         <button class="tab-btn" onclick="switchTab('password', this)">
             <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             Mot de passe
+        </button>
+        <button class="tab-btn" onclick="switchTab('apparence', this)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20"/><path d="M12 2v20"/></svg>
+            Apparence
         </button>
     </div>
 
@@ -411,6 +438,35 @@
     </div>
 
     <!-- ══════════════════════════════════════════
+         TAB : APPARENCE
+    ══════════════════════════════════════════ -->
+    <div class="tab-panel" id="tab-apparence">
+        <div class="section">
+            <h2>Thème de l'interface</h2>
+            <p class="section-desc">Choisis l'apparence du site. Le thème est sauvegardé dans ton navigateur.</p>
+
+            <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
+
+                <button onclick="setTheme('green')" id="theme-btn-green" class="theme-card active-theme">
+                    <div style="width:100%;height:60px;border-radius:6px;background:linear-gradient(135deg,#003200,#006600);margin-bottom:.6rem;"></div>
+                    <span>Vert (défaut)</span>
+                </button>
+
+                <button onclick="setTheme('dark')" id="theme-btn-dark" class="theme-card">
+                    <div style="width:100%;height:60px;border-radius:6px;background:linear-gradient(135deg,#050508,#111118);margin-bottom:.6rem;"></div>
+                    <span>Sombre</span>
+                </button>
+
+                <button onclick="setTheme('light')" id="theme-btn-light" class="theme-card">
+                    <div style="width:100%;height:60px;border-radius:6px;background:linear-gradient(135deg,#f0f2f0,#ffffff);border:1px solid rgba(0,0,0,.1);margin-bottom:.6rem;"></div>
+                    <span>Clair</span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════
          TAB : MOT DE PASSE
     ══════════════════════════════════════════ -->
     <div class="tab-panel" id="tab-password">
@@ -478,6 +534,24 @@
 </div>
 
 <script>
+    /* ── Thèmes ── */
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('lks_theme', theme);
+        document.querySelectorAll('.theme-card').forEach(b => b.classList.remove('active-theme'));
+        document.getElementById('theme-btn-' + theme).classList.add('active-theme');
+    }
+
+    // Marquer le bouton du thème actif au chargement
+    (function() {
+        const t = localStorage.getItem('lks_theme') || 'green';
+        const btn = document.getElementById('theme-btn-' + t);
+        if (btn) {
+            document.querySelectorAll('.theme-card').forEach(b => b.classList.remove('active-theme'));
+            btn.classList.add('active-theme');
+        }
+    })();
+
     /* ── Onglets ── */
     function switchTab(name, btn) {
         document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));

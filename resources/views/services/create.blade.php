@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Ajouter un service — LockKeySecure</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script>(function(){const t=localStorage.getItem('lks_theme')||'green';document.documentElement.setAttribute('data-theme',t);})();</script>
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         :root {

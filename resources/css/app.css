@@ -1,3 +1,166 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ═══════════════════════════════════════════
+   THÈMES — LockKeySecure
+   Appliqué via data-theme sur <html>
+   Par défaut : green (aucun attribut)
+═══════════════════════════════════════════ */
+
+/* ── Thème DARK (plus noir) ── */
+[data-theme="dark"] body {
+    background: #050508 !important;
+    color: #e8e8e8 !important;
+}
+[data-theme="dark"] .topbar {
+    background: #0d0d12 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,.8) !important;
+}
+[data-theme="dark"] .card,
+[data-theme="dark"] .section {
+    background: rgba(255,255,255,.04) !important;
+    border-color: rgba(255,255,255,.08) !important;
+}
+[data-theme="dark"] .card:hover {
+    background: rgba(255,255,255,.07) !important;
+}
+[data-theme="dark"] input,
+[data-theme="dark"] textarea {
+    background: rgba(255,255,255,.05) !important;
+    border-color: rgba(255,255,255,.12) !important;
+}
+[data-theme="dark"] .session-item,
+[data-theme="dark"] .passkey-item {
+    background: rgba(255,255,255,.04) !important;
+    border-color: rgba(255,255,255,.08) !important;
+}
+[data-theme="dark"] .generator {
+    background: rgba(255,255,255,.03) !important;
+}
+[data-theme="dark"] .tabs {
+    border-color: rgba(255,255,255,.08) !important;
+}
+
+/* ── Thème LIGHT (plus blanc) ── */
+[data-theme="light"] body {
+    background: #f0f2f0 !important;
+    color: #1a1a1a !important;
+}
+[data-theme="light"] .topbar {
+    background: #003200 !important;
+}
+[data-theme="light"] .page-header h1,
+[data-theme="light"] .page-header p,
+[data-theme="light"] .card-name,
+[data-theme="light"] .card-url,
+[data-theme="light"] .card-value,
+[data-theme="light"] .card-notes,
+[data-theme="light"] .card-label,
+[data-theme="light"] .password-text,
+[data-theme="light"] .section h2,
+[data-theme="light"] .section-desc,
+[data-theme="light"] h1,
+[data-theme="light"] h2 {
+    color: #1a1a1a !important;
+}
+[data-theme="light"] .topbar-user,
+[data-theme="light"] .back-link {
+    color: rgba(255,255,255,.7) !important;
+}
+[data-theme="light"] .card {
+    background: #ffffff !important;
+    border-color: rgba(0,0,0,.1) !important;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+[data-theme="light"] .card:hover {
+    border-color: rgba(0,170,0,.4) !important;
+    background: #fafff a !important;
+}
+[data-theme="light"] .section {
+    background: #ffffff !important;
+    border-color: rgba(0,0,0,.1) !important;
+}
+[data-theme="light"] .session-item,
+[data-theme="light"] .passkey-item {
+    background: #f8f8f8 !important;
+    border-color: rgba(0,0,0,.1) !important;
+    color: #1a1a1a !important;
+}
+[data-theme="light"] .session-item.current {
+    background: rgba(0,170,0,.07) !important;
+    border-color: rgba(0,170,0,.3) !important;
+}
+[data-theme="light"] .session-agent,
+[data-theme="light"] .passkey-name {
+    color: #1a1a1a !important;
+}
+[data-theme="light"] .session-meta span,
+[data-theme="light"] .passkey-meta {
+    color: rgba(0,0,0,.5) !important;
+}
+[data-theme="light"] input,
+[data-theme="light"] textarea {
+    background: #ffffff !important;
+    border-color: rgba(0,0,0,.2) !important;
+    color: #1a1a1a !important;
+}
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+    color: rgba(0,0,0,.35) !important;
+}
+[data-theme="light"] .field label {
+    color: rgba(0,0,0,.65) !important;
+}
+[data-theme="light"] .flash {
+    background: rgba(0,150,0,.1) !important;
+    color: #004400 !important;
+}
+[data-theme="light"] .search-wrap input {
+    background: #ffffff !important;
+    border-color: rgba(0,0,0,.15) !important;
+    color: #1a1a1a !important;
+}
+[data-theme="light"] .tabs {
+    border-color: rgba(0,0,0,.12) !important;
+}
+[data-theme="light"] .tab-btn {
+    color: rgba(0,0,0,.5) !important;
+}
+[data-theme="light"] .tab-btn:hover {
+    color: rgba(0,0,0,.8) !important;
+}
+[data-theme="light"] .tab-btn.active {
+    color: #007700 !important;
+    border-bottom-color: #007700 !important;
+}
+[data-theme="light"] .btn-ghost {
+    border-color: rgba(0,0,0,.2) !important;
+    color: rgba(0,0,0,.7) !important;
+}
+[data-theme="light"] .btn-ghost:hover {
+    background: rgba(0,0,0,.05) !important;
+}
+[data-theme="light"] .generator {
+    background: rgba(0,0,0,.03) !important;
+    border-color: rgba(0,0,0,.1) !important;
+}
+[data-theme="light"] .gen-toggle-btn {
+    border-color: rgba(0,0,0,.2) !important;
+    color: rgba(0,0,0,.6) !important;
+}
+[data-theme="light"] .gen-pill {
+    border-color: rgba(0,0,0,.2) !important;
+    color: rgba(0,0,0,.5) !important;
+}
+[data-theme="light"] .gen-pill.on {
+    background: rgba(0,170,0,.15) !important;
+    color: #004400 !important;
+}
+[data-theme="light"] .topbar-user {
+    color: rgba(255,255,255,.75) !important;
+}
+[data-theme="light"] .btn-logout {
+    border-color: rgba(255,255,255,.3) !important;
+    color: rgba(255,255,255,.8) !important;
+}
