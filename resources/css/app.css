@@ -105,39 +105,39 @@
 [data-theme="white"] .empty { color: rgba(0,0,0,.3) !important; }
 [data-theme="white"] .topbar-right .btn-logout { border-color: rgba(255,255,255,.25) !important; color: rgba(255,255,255,.75) !important; }
 
-/* ── Thème LIGHT (vert clair) ── */
+/* ── Thème LIGHT (vert clair — vert lumineux) ── */
 [data-theme="light"] body {
-    background: #163516 !important;
+    background: #1e6b1e !important;
 }
 [data-theme="light"] .topbar {
-    background: #0a280a !important;
+    background: #134813 !important;
 }
 [data-theme="light"] .card {
-    background: rgba(255,255,255,.09) !important;
-    border-color: rgba(255,255,255,.16) !important;
+    background: rgba(255,255,255,.14) !important;
+    border-color: rgba(255,255,255,.22) !important;
 }
 [data-theme="light"] .card:hover {
-    background: rgba(255,255,255,.13) !important;
-    border-color: rgba(0,200,0,.4) !important;
+    background: rgba(255,255,255,.20) !important;
+    border-color: rgba(0,230,0,.45) !important;
 }
 [data-theme="light"] .section {
-    background: rgba(255,255,255,.08) !important;
-    border-color: rgba(255,255,255,.15) !important;
+    background: rgba(255,255,255,.12) !important;
+    border-color: rgba(255,255,255,.20) !important;
 }
 [data-theme="light"] .session-item,
 [data-theme="light"] .passkey-item {
-    background: rgba(255,255,255,.07) !important;
-    border-color: rgba(255,255,255,.14) !important;
+    background: rgba(255,255,255,.11) !important;
+    border-color: rgba(255,255,255,.20) !important;
 }
 [data-theme="light"] input,
 [data-theme="light"] textarea {
-    background: rgba(255,255,255,.12) !important;
-    border-color: rgba(255,255,255,.25) !important;
+    background: rgba(255,255,255,.18) !important;
+    border-color: rgba(255,255,255,.35) !important;
 }
 [data-theme="light"] .generator {
-    background: rgba(255,255,255,.05) !important;
-    border-color: rgba(255,255,255,.12) !important;
+    background: rgba(255,255,255,.08) !important;
+    border-color: rgba(255,255,255,.18) !important;
 }
 [data-theme="light"] .tabs {
-    border-color: rgba(255,255,255,.15) !important;
+    border-color: rgba(255,255,255,.20) !important;
 }

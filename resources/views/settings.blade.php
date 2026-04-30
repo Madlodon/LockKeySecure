@@ -458,7 +458,7 @@
                 </button>
 
                 <button onclick="setTheme('light')" id="theme-btn-light" class="theme-card">
-                    <div style="width:100%;height:60px;border-radius:6px;background:linear-gradient(135deg,#163516,#1f4d1f);margin-bottom:.6rem;"></div>
+                    <div style="width:100%;height:60px;border-radius:6px;background:linear-gradient(135deg,#1e6b1e,#2d8f2d);margin-bottom:.6rem;"></div>
                     <span>Vert clair</span>
                 </button>
 
