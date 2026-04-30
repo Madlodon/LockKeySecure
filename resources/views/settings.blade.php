@@ -458,8 +458,13 @@
                 </button>
 
                 <button onclick="setTheme('light')" id="theme-btn-light" class="theme-card">
+                    <div style="width:100%;height:60px;border-radius:6px;background:linear-gradient(135deg,#163516,#1f4d1f);margin-bottom:.6rem;"></div>
+                    <span>Vert clair</span>
+                </button>
+
+                <button onclick="setTheme('white')" id="theme-btn-white" class="theme-card">
                     <div style="width:100%;height:60px;border-radius:6px;background:linear-gradient(135deg,#f0f2f0,#ffffff);border:1px solid rgba(0,0,0,.1);margin-bottom:.6rem;"></div>
-                    <span>Clair</span>
+                    <span>Blanc</span>
                 </button>
 
             </div>
